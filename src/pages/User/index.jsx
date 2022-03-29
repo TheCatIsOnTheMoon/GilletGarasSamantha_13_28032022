@@ -15,14 +15,14 @@ function UserPage() {
             <h1 className="sr-only">Argent Bank</h1>
           </Link>
           <div>
-            <a className="main-nav-item" href="./user.html">
+            <Link to={'/user/:id'} className="main-nav-item">
               <i className="fa fa-user-circle"></i>
               Tony
-            </a>
-            <a className="main-nav-item" href="./index.html">
+            </Link>
+            <Link to={'/'} className="main-nav-item">
               <i className="fa fa-sign-out"></i>
               Sign Out
-            </a>
+            </Link>
           </div>
         </nav>
       </header>
