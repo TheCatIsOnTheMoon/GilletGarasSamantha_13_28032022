@@ -1,13 +1,41 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { login } from '../../actions/userAction';
 
 function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  //call our user action
+  const dispatch = useDispatch();
+
+  const userLogin = useSelector((state) => state.userLogin);
+  //destructuration
+  const { loading, error, userInfo } = userLogin;
+
+  const navigateTo = useNavigate();
+
+  //if userInfo redirect to profilepage
+  useEffect(() => {
+    if (userInfo) {
+      navigateTo('/profile');
+    }
+  }, [navigateTo, userInfo]);
+
   const submitHandler = async (e) => {
     e.preventDefault();
     console.log('email : ', email, 'password : ', password);
+    dispatch(login(email, password));
   };
+
+  if (error) {
+    <div>error</div>;
+  }
+
+  if (loading) {
+    return <div>loading</div>;
+  }
 
   return (
     <>
@@ -17,10 +45,10 @@ function SignIn() {
           <h1>Sign In</h1>
           <form onSubmit={submitHandler}>
             <div className="input-wrapper">
-              <label htmlFor="username"> Username </label>
+              <label htmlFor="email"> Email </label>
               <input
                 type="text"
-                id="username"
+                id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
