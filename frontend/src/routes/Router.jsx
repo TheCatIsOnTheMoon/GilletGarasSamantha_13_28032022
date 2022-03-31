@@ -22,7 +22,7 @@ function AppRouter() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/sign-in" element={<SignIn />} />
-          <Route path="/user/:id" element={<UserPage />} />
+          <Route path="/user/profile" element={<UserPage />} />
           <Route path="*" element={<Error />} />
         </Routes>
       </main>

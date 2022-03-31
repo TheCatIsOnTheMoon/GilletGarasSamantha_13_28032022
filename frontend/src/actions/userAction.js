@@ -1,9 +1,12 @@
 import axios from 'axios';
 import {
-  USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
+  USER_LOGIN_FAIL,
   USER_LOGOUT,
+  USER_PROFILE_REQUEST,
+  USER_PROFILE_SUCCESS,
+  USER_PROFILE_FAIL,
 } from '../constants/userConstants';
 
 // a function nested inside another, possible because of redux thunk
@@ -30,10 +33,11 @@ export const login = (email, password) => async (dispatch) => {
 
     console.log('logIn data : ', data);
 
-    //if succesfull call this reducer witch will populate our userInfos with the payload (aka data)
-    dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
-
+    //retrieve token inside data
     const token = data.body.token;
+
+    //if succesfull call this reducer witch will populate our token with the payload (aka actual token)
+    dispatch({ type: USER_LOGIN_SUCCESS, payload: token });
 
     localStorage.setItem('token', JSON.stringify(token));
 
@@ -52,37 +56,56 @@ export const login = (email, password) => async (dispatch) => {
   }
 };
 
-export const getProfile = () => async (dispatch) => {
-  //
-  console.log('getProfile called', localStorage.getItem('userInfo'));
-
-  //Get user from localstorage
-  const token = localStorage.getItem('userInfo').body.token;
-
-  console.log('getProfile token :', token);
-
-  const config = {
-    headers: { Authorization: 'Bearer ' + token },
-  };
-  const { data } = await axios.post(
-    'http://localhost:3001/api/v1/user/profile',
-    {},
-    config
-  );
-
-  console.log('getProfile data : ', data);
-};
-
 export const logOut = () => async (dispatch) => {
   //
   console.log('logOut called');
   //clear local storage
   localStorage.removeItem('token');
-  // other way to clear local storage
+  // other way to clear local storage :
   // localStorage.clear();
 
   console.log('localStorage error : ', localStorage);
 
   //clear reduxtool
   dispatch({ type: USER_LOGOUT });
+};
+
+export const getProfile = (token) => async (dispatch) => {
+  try {
+    console.log('getProfile token :', token);
+
+    dispatch({ type: USER_PROFILE_REQUEST });
+
+    const config = {
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: 'Bearer ' + token,
+      },
+    };
+
+    console.log('await get profile data');
+
+    const { data } = await axios.post(
+      'http://localhost:3001/api/v1/user/profile',
+      {},
+      config
+    );
+
+    dispatch({ type: USER_PROFILE_SUCCESS, payload: data });
+
+    console.log('getProfile response data : ', data);
+
+    localStorage.setItem('userInfo', JSON.stringify(data));
+    //
+  } catch (error) {
+    alert('Unable to get to your profile.');
+    console.log('localStorage profile failure : ', localStorage);
+    dispatch({
+      type: USER_PROFILE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
 };

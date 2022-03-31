@@ -1,4 +1,14 @@
+import { useDispatch } from 'react-redux';
+import { getProfile } from '../../actions/userAction';
+
 function UserPage() {
+  //call our user action
+  const dispatch = useDispatch();
+
+  const token = localStorage.getItem('token');
+
+  dispatch(getProfile(token));
+
   return (
     <>
       <main className="main bg-dark">

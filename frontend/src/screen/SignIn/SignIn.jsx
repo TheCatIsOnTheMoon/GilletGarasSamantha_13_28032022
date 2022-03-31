@@ -19,7 +19,7 @@ function SignIn() {
   //if userInfo redirect to profilepage
   useEffect(() => {
     if (token) {
-      navigateTo('/user/:id');
+      navigateTo('/user/profile');
     }
   }, [navigateTo, token]);
 
