@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 //screens
 import Home from '../screen/Home/Home';
-import SignIn from '../screen/SignInScreen/SignInScreen';
-import UserPage from '../screen/UserScreen/UserScreen';
+import SignIn from '../screen/SignIn/SignIn';
+import UserPage from '../screen/UserPage/UserPage';
 import Error from '../screen/Error/Error';
 //componants
 import Header from '../components/Header/Header';

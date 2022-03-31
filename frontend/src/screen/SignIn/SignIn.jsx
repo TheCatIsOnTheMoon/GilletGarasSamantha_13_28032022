@@ -25,7 +25,12 @@ function SignIn() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    console.log('email : ', email, 'password : ', password);
+    console.log(
+      'submitHandler email : ',
+      email,
+      'submitHandler password : ',
+      password
+    );
     dispatch(login(email, password));
   };
 
