@@ -12,16 +12,16 @@ function SignIn() {
 
   const userLogin = useSelector((state) => state.userLogin);
   //destructuration
-  const { loading, error, userInfo } = userLogin;
+  const { loading, error, token } = userLogin;
 
   const navigateTo = useNavigate();
 
   //if userInfo redirect to profilepage
   useEffect(() => {
-    if (userInfo) {
+    if (token) {
       navigateTo('/user/:id');
     }
-  }, [navigateTo, userInfo]);
+  }, [navigateTo, token]);
 
   const submitHandler = async (e) => {
     e.preventDefault();

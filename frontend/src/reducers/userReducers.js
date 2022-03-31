@@ -13,7 +13,7 @@ export const userLoginReducer = (state = {}, action) => {
 
     case USER_LOGIN_SUCCESS:
       console.log('USER_LOGIN_SUCCESS reducer called');
-      return { loading: false, userInfo: action.payload };
+      return { loading: false, token: action.payload };
 
     case USER_LOGIN_FAIL:
       console.log('USER_LOGIN_FAIL reducer called');

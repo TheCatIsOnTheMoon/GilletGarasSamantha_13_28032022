@@ -33,7 +33,9 @@ export const login = (email, password) => async (dispatch) => {
     //if succesfull call this reducer witch will populate our userInfos with the payload (aka data)
     dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
 
-    localStorage.setItem('userInfo', JSON.stringify(data));
+    const token = data.body.token;
+
+    localStorage.setItem('token', JSON.stringify(token));
 
     console.log('localStorage succes : ', localStorage);
     //
@@ -75,7 +77,7 @@ export const logOut = () => async (dispatch) => {
   //
   console.log('logOut called');
   //clear local storage
-  localStorage.removeItem('userInfo');
+  localStorage.removeItem('token');
   // other way to clear local storage
   // localStorage.clear();
 
