@@ -6,9 +6,16 @@ import { getProfile } from '../../actions/userAction';
 function UserPage() {
   // Get token from local storage
   const token = localStorage.getItem('token');
+  // Get name from local storage
+  const firstName = localStorage.getItem('firstName');
+  const lastName = localStorage.getItem('lastName');
+
   //call our user action
   const dispatch = useDispatch();
   const navigateTo = useNavigate();
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
   // non usefull ? keep in case later
   /////////////////////////////////////////////////////////////////
@@ -26,10 +33,6 @@ function UserPage() {
     }
     dispatch(getProfile(token));
   }, [navigateTo, dispatch, token]);
-
-  // Get token from local storage
-  const firstName = localStorage.getItem('firstName');
-  const lastName = localStorage.getItem('lastName');
 
   return (
     <>

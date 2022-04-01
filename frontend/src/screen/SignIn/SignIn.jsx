@@ -20,7 +20,7 @@ function SignIn() {
   //if userInfo redirect to profilepage
   useEffect(() => {
     if (userInfo) {
-      navigateTo('/user/profile');
+      navigateTo('/profile');
     }
   }, [navigateTo, userInfo]);
 

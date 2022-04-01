@@ -5,6 +5,10 @@
   padding: 5px 20px;
 }
 
+.navbar__item {
+  display: flex;
+}
+
 .main-nav-item {
   font-weight: bold;
   color: #2c3e50;
