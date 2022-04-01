@@ -13,16 +13,16 @@ function SignIn() {
   // Fetch token on our redux store
   const userLogin = useSelector((state) => state.userLogin);
   //destructuration
-  const { loading, error, token } = userLogin;
+  const { loading, error, userInfo } = userLogin;
 
   const navigateTo = useNavigate();
 
   //if userInfo redirect to profilepage
   useEffect(() => {
-    if (token) {
+    if (userInfo) {
       navigateTo('/user/profile');
     }
-  }, [navigateTo, token]);
+  }, [navigateTo, userInfo]);
 
   const submitHandler = async (e) => {
     e.preventDefault();

@@ -1,13 +1,30 @@
-import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { getProfile } from '../../actions/userAction';
 
 function UserPage() {
+  // Get token from local storage
+  const token = localStorage.getItem('token');
   //call our user action
   const dispatch = useDispatch();
 
-  const token = localStorage.getItem('token');
+  // non usefull ? keep in case later
+  /////////////////////////////////////////////////////////////////
+  // Fetch userInfo on our redux store :
+  // const userProfile = useSelector((state) => state.userProfile);
+  //destructuration
+  // const { loading, error, userInfo } = userProfile;
+  // console.log('userProfile :', userProfile);
+  ////////////////////////////////////////////////////////////////
 
-  dispatch(getProfile(token));
+  //Get userInfos
+  useEffect(() => {
+    dispatch(getProfile(token));
+  }, [dispatch, token]);
+
+  // Get token from local storage
+  const firstName = localStorage.getItem('firstName');
+  const lastName = localStorage.getItem('lastName');
 
   return (
     <>
@@ -16,7 +33,7 @@ function UserPage() {
           <h1>
             Welcome back
             <br />
-            Tony Jarvis!
+            {firstName} {lastName} !
           </h1>
           <button className="edit-button">Edit Name</button>
         </div>

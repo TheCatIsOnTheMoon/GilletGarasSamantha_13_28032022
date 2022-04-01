@@ -9,6 +9,7 @@ import {
   USER_PROFILE_FAIL,
 } from '../constants/userConstants';
 
+//Login
 // a function nested inside another, possible because of redux thunk
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -31,17 +32,17 @@ export const login = (email, password) => async (dispatch) => {
       config
     );
 
-    // console.log('logIn data : ', data);
+    console.log('logIn response data : ', data);
+
+    //if succesfull call this reducer witch will populate our token with the payload (aka actual token)
+    dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
 
     //retrieve token inside data
     const token = data.body.token;
 
-    //if succesfull call this reducer witch will populate our token with the payload (aka actual token)
-    dispatch({ type: USER_LOGIN_SUCCESS, payload: token });
-
     localStorage.setItem('token', token);
 
-    console.log('localStorage succes : ', localStorage);
+    console.log('login - localStorage succes : ', localStorage);
     //
   } catch (error) {
     alert('Login failure : unknown email or bad password.');
@@ -55,14 +56,15 @@ export const login = (email, password) => async (dispatch) => {
   }
 };
 
+//Logout and clear local storage
 export const logOut = () => async (dispatch) => {
   //
   console.log('logOut called');
   //clear local storage
-  localStorage.removeItem('token');
-  localStorage.removeItem('userInfo');
+  // localStorage.removeItem('token');
+  // localStorage.removeItem('userInfo');
   // other way to clear local storage :
-  // localStorage.clear();
+  localStorage.clear();
 
   console.log('localStorage logout : ', localStorage);
 
@@ -70,6 +72,7 @@ export const logOut = () => async (dispatch) => {
   dispatch({ type: USER_LOGOUT });
 };
 
+//Get Profile Data from API
 export const getProfile = (token) => async (dispatch) => {
   try {
     console.log('getProfile token :', token);
@@ -91,18 +94,23 @@ export const getProfile = (token) => async (dispatch) => {
       config
     );
 
-    //retrieve token inside data
-    const userInfo = data.body;
+    console.log('getProfile response data : ', data);
 
-    dispatch({ type: USER_PROFILE_SUCCESS, payload: userInfo }); //update state
+    dispatch({ type: USER_PROFILE_SUCCESS, payload: data });
 
-    console.log('getProfile response data : ', userInfo);
+    //retrieve profileData inside data
+    const profileData = data.body;
 
-    localStorage.setItem('userInfo', JSON.stringify(userInfo));
+    localStorage.setItem('firstName', profileData.firstName);
+    localStorage.setItem('lastName', profileData.lastName);
+
+    console.log('getProfile - localStorage succes : ', localStorage);
     //
   } catch (error) {
     alert('Unable to get to your profile.');
+    //
     console.log('localStorage profile failure : ', localStorage);
+    //
     dispatch({
       type: USER_PROFILE_FAIL,
       payload:
