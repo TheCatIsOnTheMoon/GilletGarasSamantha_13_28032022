@@ -8,6 +8,7 @@ import {
   USER_PROFILE_FAIL,
 } from '../constants/userConstants';
 
+// LOGIN
 export const userLoginReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:
@@ -31,6 +32,7 @@ export const userLoginReducer = (state = {}, action) => {
   }
 };
 
+// PROFILE
 export const userProfileReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_PROFILE_REQUEST:

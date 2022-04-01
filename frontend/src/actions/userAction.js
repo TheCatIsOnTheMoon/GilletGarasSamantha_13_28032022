@@ -31,7 +31,7 @@ export const login = (email, password) => async (dispatch) => {
       config
     );
 
-    console.log('logIn data : ', data);
+    // console.log('logIn data : ', data);
 
     //retrieve token inside data
     const token = data.body.token;
@@ -42,7 +42,6 @@ export const login = (email, password) => async (dispatch) => {
     localStorage.setItem('token', token);
 
     console.log('localStorage succes : ', localStorage);
-    //
     //
   } catch (error) {
     alert('Login failure : unknown email or bad password.');
@@ -61,10 +60,11 @@ export const logOut = () => async (dispatch) => {
   console.log('logOut called');
   //clear local storage
   localStorage.removeItem('token');
+  localStorage.removeItem('userInfo');
   // other way to clear local storage :
   // localStorage.clear();
 
-  console.log('localStorage error : ', localStorage);
+  console.log('localStorage logout : ', localStorage);
 
   //clear reduxtool
   dispatch({ type: USER_LOGOUT });
@@ -91,11 +91,14 @@ export const getProfile = (token) => async (dispatch) => {
       config
     );
 
-    dispatch({ type: USER_PROFILE_SUCCESS, payload: data });
+    //retrieve token inside data
+    const userInfo = data.body;
 
-    console.log('getProfile response data : ', data);
+    dispatch({ type: USER_PROFILE_SUCCESS, payload: userInfo }); //update state
 
-    localStorage.setItem('userInfo', JSON.stringify(data));
+    console.log('getProfile response data : ', userInfo);
+
+    localStorage.setItem('userInfo', JSON.stringify(userInfo));
     //
   } catch (error) {
     alert('Unable to get to your profile.');

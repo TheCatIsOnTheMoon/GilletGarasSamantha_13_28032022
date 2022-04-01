@@ -10,6 +10,7 @@ function SignIn() {
   //call our user action
   const dispatch = useDispatch();
 
+  // Fetch token on our redux store
   const userLogin = useSelector((state) => state.userLogin);
   //destructuration
   const { loading, error, token } = userLogin;
@@ -25,12 +26,7 @@ function SignIn() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    console.log(
-      'submitHandler email : ',
-      email,
-      'submitHandler password : ',
-      password
-    );
+    // console.log('submit email : ', email, 'submit password : ', password);
     dispatch(login(email, password));
   };
 
