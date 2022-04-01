@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { getProfile } from '../../actions/userAction';
 
 function UserPage() {
@@ -7,6 +8,7 @@ function UserPage() {
   const token = localStorage.getItem('token');
   //call our user action
   const dispatch = useDispatch();
+  const navigateTo = useNavigate();
 
   // non usefull ? keep in case later
   /////////////////////////////////////////////////////////////////
@@ -19,8 +21,11 @@ function UserPage() {
 
   //Get userInfos
   useEffect(() => {
+    if (!token) {
+      navigateTo('/');
+    }
     dispatch(getProfile(token));
-  }, [dispatch, token]);
+  }, [navigateTo, dispatch, token]);
 
   // Get token from local storage
   const firstName = localStorage.getItem('firstName');

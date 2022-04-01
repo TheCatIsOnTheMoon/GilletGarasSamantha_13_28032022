@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import {
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
@@ -107,10 +108,9 @@ export const getProfile = (token) => async (dispatch) => {
     console.log('getProfile - localStorage succes : ', localStorage);
     //
   } catch (error) {
-    alert('Unable to get to your profile.');
+    alert('Unable to get to your profile. You have to connect first');
     //
     console.log('localStorage profile failure : ', localStorage);
-    //
     dispatch({
       type: USER_PROFILE_FAIL,
       payload:
