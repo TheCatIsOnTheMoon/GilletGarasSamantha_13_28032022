@@ -39,7 +39,7 @@ export const login = (email, password) => async (dispatch) => {
     //if succesfull call this reducer witch will populate our token with the payload (aka actual token)
     dispatch({ type: USER_LOGIN_SUCCESS, payload: token });
 
-    localStorage.setItem('token', JSON.stringify(token));
+    localStorage.setItem('token', token);
 
     console.log('localStorage succes : ', localStorage);
     //
