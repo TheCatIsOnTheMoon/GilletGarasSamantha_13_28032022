@@ -126,3 +126,55 @@ export const getProfile = (token) => async (dispatch) => {
     });
   }
 };
+
+/**
+ * It takes in a token, firstName, and lastName,
+ * and sends a PUT request to the backend to update the
+ * user's profile
+ * @param token - The token that was returned from the login action.
+ * @param firstName - The first name of the user.
+ * @param lastName - The last name of the user.
+ *
+ */
+export const updateProfile =
+  (token, firstName, lastName) => async (dispatch) => {
+    try {
+      // console.log('updateProfile params :', token, firstName, lastName);
+      dispatch({ type: USER_UPDATE_REQUEST });
+
+      const config = {
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: 'Bearer ' + token,
+        },
+      };
+
+      // console.log('await put profile data');
+      const { data } = await axios.put(
+        'http://localhost:3001/api/v1/user/profile',
+        {
+          firstName,
+          lastName,
+        },
+        config
+      );
+      // console.log('Profile updated data : ', data);
+      dispatch({ type: USER_UPDATE_SUCCESS, payload: data });
+
+      //retrieve profileData inside data
+      const profileData = data.body;
+      localStorage.setItem('firstName', profileData.firstName);
+      localStorage.setItem('lastName', profileData.lastName);
+      // console.log('getProfile - localStorage succes : ', localStorage);
+      //
+    } catch (error) {
+      alert('Unable to update your profile.');
+      dispatch({
+        type: USER_UPDATE_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };

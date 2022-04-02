@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getProfile } from '../../actions/userAction';
+import { getProfile, updateProfile } from '../../actions/userAction';
 
 function UserPage() {
   const [editName, setEditName] = useState(false);
+  const [newFirstName, setNewFirstName] = useState('');
+  const [newLastName, setNewLastName] = useState('');
 
   //call our user action
   const dispatch = useDispatch();
@@ -33,12 +35,13 @@ function UserPage() {
   //edit name
   const launchEditName = () => {
     if (editName) {
-      alert('Your name has been change');
-      console.log('I finished editing my name');
+      dispatch(updateProfile(token, newFirstName, newLastName));
+      alert('Your name has been changed');
+      //force refresh
       window.location.reload(false);
+      //end edit
       return setEditName(false);
     }
-    console.log('I wanna edit my name');
     return setEditName(true);
   };
 
@@ -59,7 +62,7 @@ function UserPage() {
                     id="firstName"
                     maxLength="20"
                     placeholder="Your first name"
-                    // onChange={(e) => setfirstName(e.target.value)}
+                    onChange={(e) => setNewFirstName(e.target.value)}
                   />
                 </div>
                 <div className="input-wrapper">
@@ -69,7 +72,7 @@ function UserPage() {
                     id="lastName"
                     maxLength="20"
                     placeholder="Your last name"
-                    // onChange={(e) => setlastName(e.target.value)}
+                    onChange={(e) => setNewLastName(e.target.value)}
                   />
                 </div>
               </div>
