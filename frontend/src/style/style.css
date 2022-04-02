@@ -180,6 +180,15 @@
   margin-bottom: 2rem;
 }
 
+.input-area {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  margin-top: 2rem;
+  gap: .5rem;
+  max-width: fit-content;
+}
+
 .transaction-button {
   display: block;
   width: 100%;

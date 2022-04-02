@@ -7,15 +7,16 @@ import { useDispatch, useSelector } from 'react-redux';
 function Header() {
   // Get token from local storage
   const token = localStorage.getItem('token');
-  // Get name from local storage
-  const firstName = localStorage.getItem('firstName');
 
   //call our user action
   const dispatch = useDispatch();
   const navigateTo = useNavigate();
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
+  const userProfile = useSelector((state) => state.userProfile);
+  //destructuration
+  const { loading, error, userInfo } = userProfile;
+
+  // console.log('userProfile :', userInfo);
 
   const logoutHandler = () => {
     dispatch(logOut());
@@ -38,7 +39,7 @@ function Header() {
           <>
             <Link to="/profile" className="main-nav-item">
               <i className="fa fa-user-circle"></i>
-              <span>{firstName}</span>
+              <span>{userInfo?.body?.firstName}</span>
             </Link>
 
             <div onClick={logoutHandler} className="main-nav-item">
