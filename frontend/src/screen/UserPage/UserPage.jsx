@@ -45,6 +45,14 @@ function UserPage() {
     return setEditName(true);
   };
 
+  if (error) {
+    <div>error</div>;
+  }
+
+  if (loading) {
+    return <div>loading</div>;
+  }
+
   return (
     <>
       <main className="main bg-dark">
