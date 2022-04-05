@@ -10,7 +10,7 @@ function SignIn() {
   //call our user action
   const dispatch = useDispatch();
 
-  // Fetch token on our redux store
+  // Fetch info on our redux store
   const userLogin = useSelector((state) => state.userLogin);
   //destructuration
   const { loading, error, userInfo } = userLogin;

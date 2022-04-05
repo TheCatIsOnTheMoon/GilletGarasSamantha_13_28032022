@@ -59,15 +59,15 @@ export const userProfileReducer = (state = {}, action) => {
 export const userUpdateReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_UPDATE_REQUEST:
-      console.log('USER_UPDATE_REQUEST reducer called');
+      // console.log('USER_UPDATE_REQUEST reducer called');
       return { loading: true };
 
     case USER_UPDATE_SUCCESS:
-      console.log('USER_UPDATE_SUCCESS reducer called');
+      // console.log('USER_UPDATE_SUCCESS reducer called');
       return { loading: false, userInfo: action.payload };
 
     case USER_UPDATE_FAIL:
-      console.log('USER_UPDATE_FAIL reducer called');
+      // console.log('USER_UPDATE_FAIL reducer called');
       return { loading: false, error: action.payload };
 
     default:

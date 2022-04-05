@@ -16,6 +16,7 @@ function UserPage() {
   // const store = useStore();
   // console.log('check store :', store.getState());
 
+  // Fetch info on our redux store
   const userProfile = useSelector((state) => state.userProfile);
   //destructuration
   const { loading, error, userInfo } = userProfile;
