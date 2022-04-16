@@ -53,9 +53,9 @@ mongo --version
 ### Instructions
 
 1. Fork this repo
-1. Clone the repo onto your computer
-1. Open a terminal window in the cloned project
-1. Run the following commands:
+2. Clone the repo onto your computer
+3. Open a terminal window in the cloned project
+4. Run the following commands:
 
 ```bash
 # go to backend file
@@ -77,7 +77,7 @@ Your server should now be running at http://locahost:3001 and you should have tw
 ## Setup Frontend
 
 1. Open a terminal window in the cloned project
-1. Run the following commands:
+2. Run the following commands:
 
 ```bash
 # go to frontend file
@@ -87,13 +87,13 @@ cd frontend
 npm install
 ```
 
-1. Run the App in the browser by using this command :
+3. Run the App in the browser by using this command :
 
 ```bash
 # Start App
 npm start
 ```
-1. You can now test fonctionalities with this two user profile :
+4. You can now test fonctionalities with this two user profile :
 
 #### Tony Stark
 
